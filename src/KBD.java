@@ -4,12 +4,9 @@
 
 public class KBD extends HAL { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’
                                // ou NONE.
-
   public static final char NONE = 0;
-
   // Inicia a classe
   public static void init() {
-
   }
 
   // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
