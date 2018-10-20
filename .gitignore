@@ -78,3 +78,8 @@ local.properties
 #builders
 build
 WebContent/WEB-INF/classes/
+*
+
+# Except for the listed directories:
+!.gitignore
+!src\*
