@@ -22,6 +22,7 @@ public class KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ ou NONE.
   public static void init() {
     
   }
+  
   // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
   public static char getKey() {
     return 0;
