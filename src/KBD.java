@@ -2,7 +2,8 @@
  * 
  */
 
-public class KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ ou NONE.
+public class KBD extends HAL { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’
+                               // ou NONE.
 
   public static final char NONE = 0;
 
@@ -13,33 +14,34 @@ public class KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ ou NONE.
 
   // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
   public static char getKey() {
-    int value = HAL.readBits(255); //31 reads dval + data(0..3)
-    final int dval = HAL.DVAL_BIT;
-    if (value>=dval) { //not using getBit() to avoid a new reading from software
-      switch (value) {
-        case (dval + 0) : //int value used explicit 
+    // 0b00011111 reads dval + data(0..3)
+    currentValue = readBits(DVAL_BIT + DATA_MASK); 
+    if (isBit(DVAL_BIT)) {
+      clrBits(DVAL_BIT);
+      switch (currentValue) {
+        case (0b0000) : // binary value used explicit
           return '1';
-        case (dval + 1) :
+        case (0b0001) :
           return '4';
-        case (dval + 2) :
+        case (0b0010) :
           return '7';
-        case (dval + 3) :
+        case (0b0011) :
           return '*';
-        case (dval + 4) :
+        case (0b0100) :
           return '2';
-        case (dval + 5) :
+        case (0b0101) :
           return '5';
-        case (dval + 6) :
+        case (0b0110) :
           return '8';
-        case (dval + 7) :
+        case (0b0111) :
           return '0';
-        case (dval + 8) :
+        case (0b1000) :
           return '3';
-        case (dval + 9) :
+        case (0b1001) :
           return '6';
-        case (dval + 10) :
+        case (0b1010) :
           return '9';
-        case (dval + 11) :
+        case (0b1011) :
           return '#';
         default :
           return NONE;
@@ -62,12 +64,8 @@ public class KBD { // Ler teclas. Métodos retornam ‘0’..’9’,’#’,’*’ ou NONE.
     return NONE;
   }
 
-  /**
-   * @param args
-   */
   public static void main(String[] args) {
     // TODO Auto-generated method stub
 
   }
-
 }

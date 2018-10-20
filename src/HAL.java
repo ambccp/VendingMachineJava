@@ -1,44 +1,50 @@
 import isel.leic.UsbPort;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class HAL {
-    public static final int DVAL_BIT = 16; // Bit que representa o sinal dVal que indica existência de dados no barramento de Keyboard Reader
+  // Bit que representa o sinal dVal que indica existência de dados no
+  // barramento de Keyboard Reader
+  public static final int DVAL_BIT = 0b0010000;
+  // D0..D3 bits que representam os dados lidos
+  public static final int DATA_MASK = 0b00001111;
+  // variável com o valor da leitura e manipulado pelo controlador
+  public static int currentValue;
 
-    public static void main(String[] args) {
-//        UsbPort.out(1);
-//        UsbPort.out(0);
-//        System.out.println(UsbPort.in());
-        System.out.println(0 & 15);
-    }
+  // Inicia a classe
+  public static void init() {
+    currentValue = 0;
+  }
 
-    // Inicia a classe
-    public static void init() {
-        throw new NotImplementedException();
-    }
+  // Verifica se mask tem apenas um bit a 1
+  public static Boolean isOnlyOneBitOne(int x) {
+    return (x != 0) && ((x & (x - 1)) == 0);
+  }
 
-    // Retorna true se o bit tiver o valor lógico ‘1’
-    public static boolean isBit(int mask) {
-        return (mask & UsbPort.in()) == mask;
-    }
+  // Retorna true se o bit tiver o valor lógico ‘1’
+  public static boolean isBit(int mask) {
+    return (isOnlyOneBitOne(mask) ? (mask & currentValue) == mask : false);
+  }
 
-    // Retorna os valores dos bits representados por mask presentes no UsbPort
-    public static int readBits(int mask) {
-        return mask & UsbPort.in();
-    }
+  // Retorna os valores dos bits representados por mask presentes no UsbPort
+  public static int readBits(int mask) {
+    return mask & UsbPort.in();
+  }
 
-    // Escreve nos bits representados por mask o valor de value
-    public static void writeBits(int mask, int value) {
-        UsbPort.out(mask & value);
-    }
+  // Escreve nos bits representados por mask o valor de value
+  public static void writeBits(int mask, int value) {
+    clrBits(mask);
+    setBits(mask & value);
+  }
 
-    // Coloca os bits representados por mask no valor lógico ‘1’
-    public static void setBits(int mask) { // ler do in?
-        UsbPort.out(mask | 0);
-    }
+  // Coloca os bits representados por mask no valor lógico ‘1’
+  public static void setBits(int mask) {
+    currentValue |= mask;
+  }
 
-    // Coloca os bits representados por mask no valor lógico ‘0’
-    public static void clrBits(int mask) {
-        UsbPort.out(mask ^ 0); // ler do in?
-    }
+  // Coloca os bits representados por mask no valor lógico ‘0’
+  public static void clrBits(int mask) {
+    currentValue &= ~mask;
+  }
 
+  public static void main(String[] args) {
+  }
 }
