@@ -2,7 +2,7 @@ import isel.leic.UsbPort;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class HAL {
-    private static final int DVAL_BIT = 16; // Bit que representa o sinal dVal que indica existência de dados no barramento de Keyboard Reader
+    public static final int DVAL_BIT = 16; // Bit que representa o sinal dVal que indica existência de dados no barramento de Keyboard Reader
 
     public static void main(String[] args) {
 //        UsbPort.out(1);
