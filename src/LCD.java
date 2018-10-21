@@ -21,9 +21,12 @@ public static void write(char c) {}
 //Escreve uma string na posição corrente.
 public static void write(String txt) {}
 //Envia comando para posicionar cursor (‘lin’:0..LINES-1 , ‘col’:0..COLS-1)
-public static void cursor(int lin, int col) {}
+public static void cursor(int lin, int col) {
+}
 //Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
-public static void clear() {}
+public static void clear() {
+  cursor(0, 0);
+}
 
   /**
    * @param args

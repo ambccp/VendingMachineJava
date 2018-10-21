@@ -16,10 +16,6 @@ public static void send(Destination addr, int data) {}
 public static boolean isBusy() {
   return false;}
 
-
-  /**
-   * @param args
-   */
   public static void main(String[] args) {
     // TODO Auto-generated method stub
 
